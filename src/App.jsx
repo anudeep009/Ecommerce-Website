@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <Header />
-      {/* <Slider /> */}
+      <Slider />
       <Products />
       <Products />
       <Footer />

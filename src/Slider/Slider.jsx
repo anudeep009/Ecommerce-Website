@@ -7,23 +7,23 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const images = [
   {
     id: 1,
-    img: "./src/assets/image1.png",
+    img: "./src/assets/image1.jpg",
   },
   {
     id: 2,
-    img: "./src/assets/image2.png",
+    img: "./src/assets/image2.jpg",
   },
   {
     id: 3,
-    img: "./src/assets/image3.png",
+    img: "./src/assets/image3.jpg",
   },
   {
     id: 4,
-    img: "./src/assets/image4.png",
+    img: "./src/assets/image4.jpg",
   },
   {
     id: 5,
-    img: "./src/assets/image5.png",
+    img: "./src/assets/image5.jpg",
   },
 ];
 
@@ -32,7 +32,7 @@ export default function MySlider() {
     accessibility: true,
     dots: true,
     infinite: true,
-    speed: 2000,
+    speed: 2500,
     slidesToShow: 1, 
     slidesToScroll: 1,
     autoplay: true,
