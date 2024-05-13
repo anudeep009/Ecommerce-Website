@@ -2,6 +2,8 @@
 
 import React from 'react'
 import { Menu, X } from 'lucide-react'
+import { useState } from 'react'
+import Dropdown from './Dropdown'
 
 const menuItems = [
   {
@@ -19,10 +21,15 @@ const menuItems = [
 ]
 
 function Header() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
   }
 
   return (
@@ -120,6 +127,9 @@ function Header() {
             </div>
           </div>
         )}
+      </div>
+      <div className='mt-6'>
+      <Dropdown />
       </div>
     </div>
   )
