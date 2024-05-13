@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 function Dropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('All categories');
-    const categories = ['Watches', 'Electronics', 'Mobiles', 'Accessories'];
+    const categories = ['Perfumes', 'Skin Care', 'Mobiles', 'Laptops'];
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
