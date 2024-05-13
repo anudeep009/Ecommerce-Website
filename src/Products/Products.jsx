@@ -1,31 +1,83 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { Heart, Share } from 'lucide-react';
 
 function Products() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('https://dummyjson.com/products');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
+        setProducts(data.products);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div className="grid items-center w-full px-2 py-10 mx-auto space-y-4 max-w-7xl md:grid-cols-2 md:gap-6 md:space-y-0 lg:grid-cols-4">
-      {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="border rounded-md">
-          <img
-            src="https://images.unsplash.com/photo-1588099768523-f4e6a5679d88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8NHwxMTM4MTU1NXx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-            alt="Laptop"
-            className="aspect-[16/9] w-full rounded-md md:aspect-auto md:h-[300px] lg:h-[200px]"
-          />
-          <div className="p-4">
-            <h1 className="inline-flex items-center text-lg font-semibold">Nike Airmax v2</h1>
-            <p className="mt-3 text-sm text-gray-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, debitis?
-            </p>
-            <button
-              type="button"
-              className="mt-4 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            >
-              Add to Cart
-            </button>
-          </div>
+      {products.map(product => (
+            <div key={product.id} className="mb-6 md:mb-8 lg:mb-0">
+              <div className="flex items-center justify-center mb-6 md:mb-8">
+                <img
+                  alt={`Product gallery ${product.id}`}
+                  src={product.thumbnail}
+                  width={650}
+                  height={590}
+                  className="aspect-[16/9] w-full rounded-md md:aspect-auto md:h-[300px] lg:h-[200px]"
+                />
+              </div>
+              <div className="pb-5">
+                <h2 className="text-lg font-semibold md:text-xl xl:text-2xl">{product.title}</h2>
+                <p className="mt-4 font-semibold">${product.price}</p>
+              </div>
+              <div>
+                <h3 className="text-15px mb-3 font-semibold sm:text-base lg:mb-3.5">
+                  Product Details:
+                </h3>
+                <p className="text-sm">
+                  {product.description}
+                </p>
+              </div>
+              <div className="pb-2" />
+              <div className="space-y-2.5 pt-1.5 md:space-y-3.5 lg:pt-3 xl:pt-4">
+                <button
+                  type="button"
+                  className="w-full px-3 py-2 text-sm font-semibold text-white bg-black rounded-md shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                >
+                  Add To Cart
+                </button>
+                <div className="grid grid-cols-2 gap-2.5">
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center px-3 py-2 text-sm font-semibold text-white bg-black rounded-md shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  >
+                    <Heart size={16} className="mr-3" />
+                    <span className="block">Wishlist</span>
+                  </button>
+                  <div className="relative">
+                    <button
+                      type="button"
+                      className="inline-flex items-center justify-center w-full px-3 py-2 text-sm font-semibold text-white bg-black rounded-md shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                    >
+                      <Share size={16} className="mr-3" />
+                      <span className="block">Share</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
   )
 }
+
 
 export default Products;

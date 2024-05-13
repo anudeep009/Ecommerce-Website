@@ -35,10 +35,10 @@ function Dropdown() {
             </div>
             <div className="relative w-full">
             <div className="flex items-center"> {/* New container for both input and button */}
-        <input type="search" id="search-dropdown" className="block p-2.5 p-r-0 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-black focus:border-black dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-black" placeholder="Search Mockups, Logos, Design Templates..." required />
-        <button type="submit" className="p-2.5 text-sm font-medium h-full text-white bg-black rounded-e-lg borderhover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black ml-2"> {/* Adjusted button */}
+        <input type="search" id="search-dropdown" className="block p-2.5 p-r-0 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-black focus:border-black dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-black" placeholder="Search Accesories , Laptops , Clothes..." required />
+            <button type="submit" className="p-2.5 text-sm font-medium h-full text-white bg-black rounded-e-lg borderhover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"> {/* Adjusted button */}
             <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
             </svg>
             <span className="sr-only">Search</span>
             </button>

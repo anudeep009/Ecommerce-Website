@@ -9,7 +9,6 @@ import Successbanner from './Banners/Sucessbanner';
 import Infobanner from './Banners/Infobanner';
 import Signin from './Signin/Signin';
 import Notfound from './Notfound/Notfound';
-import Product from './Products/product';
 import Slider from './Slider/Slider';
 // import Alertbanner from './Banners/Alertbanner';
 
