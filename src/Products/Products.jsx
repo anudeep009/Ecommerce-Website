@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Share } from 'lucide-react';
+// import Loading from '../Loading/Loading';
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -13,71 +16,69 @@ function Products() {
         }
         const data = await response.json();
         setProducts(data.products);
+        setLoading(false);
       } catch (error) {
-        console.error(error);
+        setError(error.message);
+        setLoading(false);
       }
     };
 
     fetchProducts();
   }, []);
 
-  return (
-    <div className="grid items-center w-full px-2 py-10 mx-auto space-y-4 max-w-7xl md:grid-cols-2 md:gap-6 md:space-y-0 lg:grid-cols-4">
-      {products.map(product => (
-            <div key={product.id} className="mb-6 md:mb-8 lg:mb-0">
-              <div className="flex items-center justify-center mb-6 md:mb-8">
-                <img
-                  alt={`Product gallery ${product.id}`}
-                  src={product.thumbnail}
-                  width={650}
-                  height={590}
-                  className="aspect-[16/9] w-full rounded-md md:aspect-auto md:h-[300px] lg:h-[200px]"
-                />
-              </div>
-              <div className="pb-5">
-                <h2 className="text-lg font-semibold md:text-xl xl:text-2xl">{product.title}</h2>
-                <p className="mt-4 font-semibold">${product.price}</p>
-              </div>
-              <div>
-                <h3 className="text-15px mb-3 font-semibold sm:text-base lg:mb-3.5">
-                  Product Details:
-                </h3>
-                <p className="text-sm">
-                  {product.description}
-                </p>
-              </div>
-              <div className="pb-2" />
-              <div className="space-y-2.5 pt-1.5 md:space-y-3.5 lg:pt-3 xl:pt-4">
-                <button
-                  type="button"
-                  className="w-full px-3 py-2 text-sm font-semibold text-white bg-black rounded-md shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                >
-                  Add To Cart
-                </button>
-                <div className="grid grid-cols-2 gap-2.5">
-                  <button
-                    type="button"
-                    className="inline-flex items-center justify-center px-3 py-2 text-sm font-semibold text-white bg-black rounded-md shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  >
-                    <Heart size={16} className="mr-3" />
-                    <span className="block">Wishlist</span>
-                  </button>
-                  <div className="relative">
-                    <button
-                      type="button"
-                      className="inline-flex items-center justify-center w-full px-3 py-2 text-sm font-semibold text-white bg-black rounded-md shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                    >
-                      <Share size={16} className="mr-3" />
-                      <span className="block">Share</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-  )
-}
+  if (loading) return <div>Loading....</div>;
+  if (error) return <div>Error: {error}</div>;
 
+  return (
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {products.map(product => (
+        <div key={product.id} className="flex flex-col justify-between p-6 bg-white rounded-lg shadow-md">
+          <div className="mb-6">
+            <div className="flex items-center justify-center mb-4">
+              <img
+                alt={`Product gallery ${product.id}`}
+                src={product.thumbnail}
+                className="object-cover w-full h-48 rounded-md"
+              />
+            </div>
+            <div className="pb-5">
+              <h2 className="text-xl font-semibold">{product.title}</h2>
+              <p className="mt-2 text-gray-600">${product.price}</p>
+            </div>
+            <div>
+              <h3 className="mb-2 text-lg font-semibold">Product Details:</h3>
+              <p className="text-sm text-gray-700">{product.description}</p>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <button
+              type="button"
+              className="px-4 py-2 text-sm font-semibold text-white bg-black rounded-md hover:bg-gray-800"
+              aria-label="Add to Cart"
+            >
+              Add To Cart
+            </button>
+            <div className="flex justify-between space-x-2">
+              <button
+                type="button"
+                className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-black rounded-md hover:bg-gray-800"
+                aria-label="Add to Wishlist"
+              >
+                Wishlist
+              </button>
+              <button
+                type="button"
+                className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-black rounded-md hover:bg-gray-800"
+                aria-label="Share Product"
+              >
+                Share
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}  
 
 export default Products;
