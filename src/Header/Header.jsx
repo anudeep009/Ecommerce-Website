@@ -4,19 +4,20 @@ import React from 'react'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import Dropdown from './Dropdown'
+import { Link } from 'react-router-dom'
+import Signup from '../Signup/Signup'
+import Signin from '../Signin/Signin'
+import Home from '../Home/Home'
 
 const menuItems = [
   {
-    name: 'Home',
-    href: '#',
+    name: 'Home'
   },
   {
-    name: 'Deals',
-    href: '#',
+    name: 'Products'
   },
   {
-    name: 'Cart',
-    href: '#',
+    name: 'Cart'
   },
 ]
 
@@ -39,35 +40,43 @@ function Header() {
           <span>
           {/* logo goes here */}
           </span>
+          <Link to="/Home" element = {<Home />}>
           <span className="font-bold">QuickMart</span>
+          </Link>
         </div>
         <div className="items-start hidden grow lg:flex">
           <ul className="inline-flex ml-12 space-x-8">
             {menuItems.map((item) => (
               <li key={item.name}>
-                <a
-                  href={item.href}
+                <Link
+                to={`/${item.name}`}
                   className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
                 >
-                  {item.name}
-                </a>
+                    <span className="ml-3 text-base font-medium text-gray-900">
+                      {item.name}
+                    </span>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
         <div className="hidden space-x-2 lg:block">
+        <Link to="/Signin">
           <button
             type="button"
             className="px-3 py-2 text-sm font-semibold text-black bg-transparent rounded-md hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
           >
             Sign In
           </button>
+          </Link>
+          <Link to="/Signup">
           <button
             type="button"
             className="px-3 py-2 text-sm font-semibold text-black border border-black rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
           >
-            Log In
+            Sign Up
           </button>
+          </Link>
         </div>
         <div className="lg:hidden">
           <Menu onClick={toggleMenu} className="w-6 h-6 cursor-pointer" />
@@ -97,33 +106,36 @@ function Header() {
                 <div className="mt-6">
                   <nav className="grid gap-y-4">
                     {menuItems.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
+                      <Link
+                        to={`/${item.name}`}
                         className="flex items-center p-3 -m-3 text-sm font-semibold rounded-md hover:bg-gray-50"
                       >
                         <span className="ml-3 text-base font-medium text-gray-900">
                           {item.name}
                         </span>
-                      </a>
+                      </Link>
                     ))}
                   </nav>
                 </div>
-                <div className="mt-2 space-y-2">
-                  <button
-                    type="button"
-                    className="w-full px-3 py-2 text-sm font-semibold text-black border border-black rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  >
-                    Sign In
-                  </button>
-                  <button
-                    type="button"
-                    className="w-full px-3 py-2 text-sm font-semibold text-white bg-black rounded-md shadow-sm hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  >
-                    Log In
-                  </button>
+              <div className="mt-2 space-y-2">
+                  <Link to="/Signin">
+                    <button
+                      type="button"
+                      className="w-full px-3 py-2 text-sm font-semibold text-black border border-black rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                    >
+                      Sign In
+                    </button>
+                  </Link>
+                  <Link to="/Signup">
+                    <button
+                      type="button"
+                      className="w-full px-3 py-2 text-sm font-semibold text-white bg-black rounded-md shadow-sm hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                    >
+                      Sign Up
+                    </button>
+                  </Link>
                 </div>
-              </div>
+              </div> 
             </div>
           </div>
         )}
