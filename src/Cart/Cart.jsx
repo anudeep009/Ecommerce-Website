@@ -24,10 +24,10 @@ function Cart() {
             <ul role="list" className="divide-y divide-gray-200">
               {products.map((product, productIdx) => (
                 <div key={product.id} className="">
-                  <li className="flex py-6 sm:py-6 ">
+                  <li key={product.id} className="flex py-6 sm:py-6 ">
                     <div className="flex-shrink-0">
                       <img
-                        src={product.imageSrc}
+                        src={product.thumbnail}
                         alt={product.name}
                         className="object-contain object-center w-24 h-24 rounded-md sm:h-38 sm:w-38"
                       />
@@ -39,27 +39,19 @@ function Cart() {
                           <div className="flex justify-between">
                             <h3 className="text-sm">
                               <a href={product.href} className="font-semibold text-black">
-                                {product.name}
+                                {product.title}
                               </a>
                             </h3>
                           </div>
-                          <div className="flex mt-1 text-sm">
-                            <p className="text-sm text-gray-500">{product.color}</p>
-                            {product.size ? (
-                              <p className="pl-4 ml-4 text-sm text-gray-500 border-l border-gray-200">
-                                {product.size}
-                              </p>
-                            ) : null}
-                          </div>
                           <div className="flex items-end mt-1">
                             <p className="text-xs font-medium text-gray-500 line-through">
-                              {product.originalPrice}
+                              {product.discountpercentage}
                             </p>
                             <p className="text-sm font-medium text-gray-900">
                               &nbsp;&nbsp;{product.price}
                             </p>
                             &nbsp;&nbsp;
-                            <p className="text-sm font-medium text-green-500">{product.discount}</p>
+                            <p className="text-sm font-medium text-green-500">{product.discountpercentage}</p>
                           </div>
                         </div>
                       </div>

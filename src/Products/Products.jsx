@@ -39,11 +39,16 @@ function Products() {
 
     fetchProducts();
   }, []);
-
+   
+  const addToCartHandler = (product) => {
+    dispatch(addProduct(product))
+    console.log(product)
+    notify();
+  }
 
   if (loading) return <div>Loading....</div>;
   if (error) return <div>Error: {error}</div>;
-  
+  console.log(products);
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -71,7 +76,8 @@ function Products() {
               type="button"
               className="px-4 py-2 text-sm font-semibold text-white bg-black rounded-md hover:bg-gray-800"
               aria-label="Add to Cart"
-              onClick={notify}
+              // onClick={notify}
+              onClick={() => addToCartHandler(product)}
             >
               Add To Cart
             </button>
