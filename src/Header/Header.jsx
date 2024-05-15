@@ -14,7 +14,7 @@ const menuItems = [
     name: 'Home'
   },
   {
-    name: 'AllProducts'
+    name: 'Products'
   },
   {
     name: 'Cart'

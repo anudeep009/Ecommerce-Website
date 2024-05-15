@@ -9,13 +9,13 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addProduct: (state, action) => {
-      const { id, title, description, price, discountpercentage, thumbnail } = action.payload;
+      const { id, title, description, price, discountPercentage, thumbnail } = action.payload;
       const newProduct = {
         id,
         title,
         description,
         price,
-        discountpercentage,
+        discountPercentage,
         thumbnail,
         quantity: 1 
       };

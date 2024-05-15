@@ -18,6 +18,22 @@ function Cart() {
     dispatch(removeProduct(productId));
   };
 
+  const totalCartValue = products.reduce((total, product) => {
+    return total + (product.price * product.quantity);
+  }, 0);
+
+  
+  const totalDiscountValue = products.reduce((total, product) => {
+    console.log("Product:", product);
+    console.log("Discount Percentage:", product.discountPercentage); // Corrected property name
+    const discountAmount = (product.price * product.quantity) * (product.discountPercentage / 100); // Corrected property name
+    console.log("Discount amount for", product.title, ":", discountAmount);
+    return total + discountAmount;
+  }, 0);
+  console.log("Total discount value:", totalDiscountValue);
+  
+  
+
 
   return (
     <div className="px-2 mx-auto max-w-7xl lg:px-0">
@@ -118,14 +134,14 @@ function Cart() {
             <div>
               <dl className="px-2 py-4 space-y-1 ">
                 <div className="flex items-center justify-between">
-                  <dt className="text-sm text-gray-800"> (3 item)</dt>
-                  <dd className="text-sm font-medium text-gray-900">₹ 52,398</dd>
+                  <dt className="text-sm text-gray-800"> ({products.length} item)</dt>
+                  <dd className="text-sm font-medium text-gray-900">₹ {totalCartValue}</dd>
                 </div>
                 <div className="flex items-center justify-between pt-4">
                   <dt className="flex items-center text-sm text-gray-800">
                     <span>Discount</span>
                   </dt>
-                  <dd className="text-sm font-medium text-green-700">- ₹ 3,431</dd>
+                  <dd className="text-sm font-medium text-green-700">- ₹{totalDiscountValue.toFixed(2)}</dd>
                 </div>
                 <div className="flex items-center justify-between py-4">
                   <dt className="flex text-sm text-gray-800">
@@ -135,11 +151,11 @@ function Cart() {
                 </div>
                 <div className="flex items-center justify-between py-4 border-dashed border-y ">
                   <dt className="text-base font-medium text-gray-900">Total Amount</dt>
-                  <dd className="text-base font-medium text-gray-900">₹ 48,967</dd>
+                  <dd className="text-base font-medium text-gray-900">₹ {(totalCartValue-totalDiscountValue).toFixed(2)}</dd>
                 </div>
               </dl>
               <div className="px-2 pb-4 font-medium text-green-700">
-                You will save ₹ 3,431 on this order
+                You will save ₹ {totalDiscountValue.toFixed(2)} on this order
               </div>
             </div>
           </section>
