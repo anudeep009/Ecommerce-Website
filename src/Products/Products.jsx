@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Share } from 'lucide-react';
-// import Loading from '../Loading/Loading';
+import { addProduct,removeProduct } from '../Store/cartSlice';
+import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch()
+  const notify = () => toast.success('Item added to the cart!', {
+    position: "top-center",
+    autoClose: 8000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,8 +40,10 @@ function Products() {
     fetchProducts();
   }, []);
 
+
   if (loading) return <div>Loading....</div>;
   if (error) return <div>Error: {error}</div>;
+  
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -55,6 +71,7 @@ function Products() {
               type="button"
               className="px-4 py-2 text-sm font-semibold text-white bg-black rounded-md hover:bg-gray-800"
               aria-label="Add to Cart"
+              onClick={notify}
             >
               Add To Cart
             </button>
@@ -77,6 +94,17 @@ function Products() {
           </div>
         </div>
       ))}
+      {<ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition: Bounce />}
     </div>
   );
 }  
