@@ -1,15 +1,24 @@
-import { Heart, Trash } from 'lucide-react'
-import React from 'react'
-import cartSlice, { addProduct } from '../Store/cartSlice'
-import store from '../Store/Store'
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { increaseQuantity, decreaseQuantity, removeProduct } from '../Store/cartSlice';
+import { Heart, Trash } from 'lucide-react';
 
 function Cart() {
-
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
-  console.log(products)
-  
+
+  const handleIncreaseQuantity = (productId) => {
+    dispatch(increaseQuantity(productId)); 
+  };
+
+  const handleDecreaseQuantity = (productId) => {
+    dispatch(decreaseQuantity(productId));
+  };
+
+  const handleRemoveProduct = (productId) => {
+    dispatch(removeProduct(productId));
+  };
+
+
   return (
     <div className="px-2 mx-auto max-w-7xl lg:px-0">
       <div className="max-w-2xl py-8 mx-auto lg:max-w-7xl">
@@ -22,13 +31,13 @@ function Cart() {
               Items in your shopping cart
             </h2>
             <ul role="list" className="divide-y divide-gray-200">
-              {products.map((product, productIdx) => (
+              {products.map((product) => (
                 <div key={product.id} className="">
-                  <li key={product.id} className="flex py-6 sm:py-6 ">
+                  <li className="flex py-6 sm:py-6">
                     <div className="flex-shrink-0">
                       <img
                         src={product.thumbnail}
-                        alt={product.name}
+                        alt={product.title}
                         className="object-contain object-center w-24 h-24 rounded-md sm:h-38 sm:w-38"
                       />
                     </div>
@@ -48,7 +57,7 @@ function Cart() {
                               {product.discountpercentage}
                             </p>
                             <p className="text-sm font-medium text-gray-900">
-                              &nbsp;&nbsp;{product.price}
+                              &nbsp;&nbsp;Total Price: ₹ {product.price * product.quantity}
                             </p>
                             &nbsp;&nbsp;
                             <p className="text-sm font-medium text-green-500">{product.discountpercentage}</p>
@@ -59,20 +68,33 @@ function Cart() {
                   </li>
                   <div className="flex mb-2">
                     <div className="flex min-w-24">
-                      <button type="button" className="h-7 w-7">
+                      <button
+                        type="button"
+                        className="h-7 w-7"
+                        onClick={() => handleDecreaseQuantity(product.id)} 
+                      >
                         -
                       </button>
                       <input
                         type="text"
                         className="mx-1 text-center border rounded-md h-7 w-9"
-                        defaultValue={1}
+                        value={product.quantity} 
+                        readOnly
                       />
-                      <button type="button" className="flex items-center justify-center h-7 w-7">
+                      <button
+                        type="button"
+                        className="flex items-center justify-center h-7 w-7"
+                        onClick={() => handleIncreaseQuantity(product.id)} 
+                      >
                         +
                       </button>
                     </div>
                     <div className="flex ml-6 text-sm">
-                      <button type="button" className="flex items-center px-2 py-1 pl-0 space-x-1">
+                      <button
+                        type="button"
+                        className="flex items-center px-2 py-1 pl-0 space-x-1"
+                        onClick={() => handleRemoveProduct(product.id)}
+                      >
                         <Trash size={12} className="text-red-500" />
                         <span className="text-xs font-medium text-red-500">Remove</span>
                       </button>
@@ -96,7 +118,7 @@ function Cart() {
             <div>
               <dl className="px-2 py-4 space-y-1 ">
                 <div className="flex items-center justify-between">
-                  <dt className="text-sm text-gray-800">Price (3 item)</dt>
+                  <dt className="text-sm text-gray-800"> (3 item)</dt>
                   <dd className="text-sm font-medium text-gray-900">₹ 52,398</dd>
                 </div>
                 <div className="flex items-center justify-between pt-4">
@@ -124,7 +146,7 @@ function Cart() {
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default Cart
+export default Cart;
