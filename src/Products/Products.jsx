@@ -11,7 +11,7 @@ function Products() {
   const [error, setError] = useState(null);
   const dispatch = useDispatch()
   const notify = () => toast.success('Item added to the cart!', {
-    position: "top-center",
+    position: "top-right",
     autoClose: 8000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -42,16 +42,14 @@ function Products() {
    
   const addToCartHandler = (product) => {
     dispatch(addProduct(product))
-    console.log(product)
     notify();
   }
 
   if (loading) return <div>Loading....</div>;
   if (error) return <div>Error: {error}</div>;
-  console.log(products);
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-6 p-2 md:grid-cols-2 lg:grid-cols-4 lg:p-6">
       {products.map(product => (
         <div key={product.id} className="flex flex-col justify-between p-6 bg-white rounded-lg shadow-md">
           <div className="mb-6">
@@ -76,7 +74,6 @@ function Products() {
               type="button"
               className="px-4 py-2 text-sm font-semibold text-white bg-black rounded-md hover:bg-gray-800"
               aria-label="Add to Cart"
-              // onClick={notify}
               onClick={() => addToCartHandler(product)}
             >
               Add To Cart

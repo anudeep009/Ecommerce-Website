@@ -1,6 +1,7 @@
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseQuantity, decreaseQuantity, removeProduct } from '../Store/cartSlice';
-import { Heart, Trash } from 'lucide-react';
+import { Trash } from 'lucide-react';
 
 function Cart() {
   const dispatch = useDispatch();
@@ -24,19 +25,12 @@ function Cart() {
 
   
   const totalDiscountValue = products.reduce((total, product) => {
-    console.log("Product:", product);
-    console.log("Discount Percentage:", product.discountPercentage); // Corrected property name
-    const discountAmount = (product.price * product.quantity) * (product.discountPercentage / 100); // Corrected property name
-    console.log("Discount amount for", product.title, ":", discountAmount);
+    const discountAmount = (product.price * product.quantity) * (product.discountPercentage / 100);
     return total + discountAmount;
   }, 0);
-  console.log("Total discount value:", totalDiscountValue);
-  
-  
-
 
   return (
-    <div className="px-2 mx-auto max-w-7xl lg:px-0">
+    <div className="max-w-5xl px-2 mx-auto lg:px-10">
       <div className="max-w-2xl py-8 mx-auto lg:max-w-7xl">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Shopping Cart
