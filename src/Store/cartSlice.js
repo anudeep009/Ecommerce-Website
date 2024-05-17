@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const persistedProducts = JSON.parse(localStorage.getItem("products")) || [];
+
 const initialState = {
-  products: []
+  products: persistedProducts
 };
 
 const cartSlice = createSlice({
@@ -10,27 +12,35 @@ const cartSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       const { id, title, description, price, discountPercentage, thumbnail } = action.payload;
-      const newProduct = {
-        id,
-        title,
-        description,
-        price,
-        discountPercentage,
-        thumbnail,
-        quantity: 1 
-      };
-      state.products.push(newProduct);
+      const existingProduct = state.products.find(product => product.id === id);
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        const newProduct = {
+          id,
+          title,
+          description,
+          price,
+          discountPercentage,
+          thumbnail,
+          quantity: 1
+        };
+        state.products.push(newProduct);
+      }
+      localStorage.setItem("products", JSON.stringify(state.products));
     },
     removeProduct: (state, action) => {
       const productIdToRemove = action.payload;
       state.products = state.products.filter(product => product.id !== productIdToRemove);
+      localStorage.setItem("products", JSON.stringify(state.products));
     },
     decreaseQuantity: (state, action) => {
       const productIdToDecrease = action.payload;
       const productToDecrease = state.products.find(product => product.id === productIdToDecrease);
       if (productToDecrease && productToDecrease.quantity > 1) {
-        productToDecrease.quantity--; 
+        productToDecrease.quantity--;
       }
+      localStorage.setItem("products", JSON.stringify(state.products));
     },
     increaseQuantity: (state, action) => {
       const productIdToIncrease = action.payload;
@@ -38,6 +48,7 @@ const cartSlice = createSlice({
       if (productToIncrease) {
         productToIncrease.quantity++;
       }
+      localStorage.setItem("products", JSON.stringify(state.products));
     }
   }
 });
@@ -45,4 +56,3 @@ const cartSlice = createSlice({
 export const { addProduct, removeProduct, decreaseQuantity, increaseQuantity } = cartSlice.actions;
 
 export default cartSlice.reducer;
-

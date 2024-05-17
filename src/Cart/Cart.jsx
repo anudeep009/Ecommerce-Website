@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseQuantity, decreaseQuantity, removeProduct } from '../Store/cartSlice';
 import { Trash } from 'lucide-react';
