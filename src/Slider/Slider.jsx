@@ -7,23 +7,23 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const images = [
   {
     id: 1,
-    img: "./src/assets/image1.jpg",
+    img: "https://ik.imagekit.io/tymm1oky9j/tinified/image1.jpg?updatedAt=1716009713908",
   },
   {
     id: 2,
-    img: "./src/assets/image2.jpg",
+    img: "https://ik.imagekit.io/tymm1oky9j/tinified/image2.jpg?updatedAt=1716009713785",
   },
   {
     id: 3,
-    img: "./src/assets/image3.jpg",
+    img: "https://ik.imagekit.io/tymm1oky9j/tinified/image4.jpg?updatedAt=1716009713719",
   },
   {
     id: 4,
-    img: "./src/assets/image4.jpg",
+    img: "https://ik.imagekit.io/tymm1oky9j/tinified/image3.jpg?updatedAt=1716009713533",
   },
   {
     id: 5,
-    img: "./src/assets/image5.jpg",
+    img: "https://ik.imagekit.io/tymm1oky9j/tinified/image5.jpg?updatedAt=1716009713544",
   },
 ];
 

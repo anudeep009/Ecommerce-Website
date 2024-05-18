@@ -5,5 +5,4 @@ const confi = {
     appwritecollectionid : String(import.meta.env.VITE_APPWRITE_COLLECTIONID)
 }
 
-export default confi
-
+export default confi;
