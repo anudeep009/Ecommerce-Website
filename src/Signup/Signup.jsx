@@ -24,13 +24,15 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("Creating account with data:", formData);
       await authService.createAccount({
         email: formData.email,
         password: formData.password,
         name: formData.name
       });
-      navigate('/Signin');
+      navigate('/signin');
     } catch (error) {
+      console.error("Signup error:", error);
       setError(error.message);
     }
   };
