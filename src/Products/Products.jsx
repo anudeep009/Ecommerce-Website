@@ -13,7 +13,7 @@ const useFetchProducts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch('https://dummyjson.com/products');
