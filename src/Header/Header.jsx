@@ -3,7 +3,6 @@
 import React from 'react'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
-import Dropdown from './Dropdown'
 import { Link } from 'react-router-dom'
 import Signup from '../Signup/Signup'
 import Signin from '../Signin/Signin'
@@ -140,9 +139,6 @@ function Header() {
             </div>
           </div>
         )}
-      </div>
-      <div className='mt-6'>
-      <Dropdown />
       </div>
     </div>
   )

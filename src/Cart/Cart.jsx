@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseQuantity, decreaseQuantity, removeProduct } from '../Store/cartSlice';
 import { Trash } from 'lucide-react';
@@ -23,7 +23,6 @@ function Cart() {
     return total + (product.price * product.quantity);
   }, 0);
 
-  
   const totalDiscountValue = products.reduce((total, product) => {
     const discountAmount = (product.price * product.quantity) * (product.discountPercentage / 100);
     return total + discountAmount;
@@ -64,13 +63,13 @@ function Cart() {
                           </div>
                           <div className="flex items-end mt-1">
                             <p className="text-xs font-medium text-gray-500 line-through">
-                              {product.discountpercentage}
+                              ₹ {product.price}
                             </p>
                             <p className="text-sm font-medium text-gray-900">
                               &nbsp;&nbsp;Total Price: ₹ {product.price * product.quantity}
                             </p>
                             &nbsp;&nbsp;
-                            <p className="text-sm font-medium text-green-500">{product.discountpercentage}</p>
+                            <p className="text-sm font-medium text-green-500">{product.discountPercentage}%</p>
                           </div>
                         </div>
                       </div>
@@ -115,44 +114,48 @@ function Cart() {
             </ul>
           </section>
           {/* Order summary */}
-          <section
-            aria-labelledby="summary-heading"
-            className="mt-16 bg-white rounded-md lg:col-span-4 lg:mt-0 lg:p-0"
-          >
-            <h2
-              id="summary-heading"
-              className="px-4 py-3 text-lg font-medium text-gray-900 border-b border-gray-200 sm:p-4"
+          {totalCartValue > 0 ? (
+            <section
+              aria-labelledby="summary-heading"
+              className="mt-16 bg-white rounded-md lg:col-span-4 lg:mt-0 lg:p-0"
             >
-              Price Details
-            </h2>
-            <div>
-              <dl className="px-2 py-4 space-y-1 ">
-                <div className="flex items-center justify-between">
-                  <dt className="text-sm text-gray-800"> ({products.length} item)</dt>
-                  <dd className="text-sm font-medium text-gray-900">₹ {totalCartValue}</dd>
+              <h2
+                id="summary-heading"
+                className="px-4 py-3 text-lg font-medium text-gray-900 border-b border-gray-200 sm:p-4"
+              >
+                Price Details
+              </h2>
+              <div>
+                <dl className="px-2 py-4 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <dt className="text-sm text-gray-800"> ({products.length} item{products.length > 1 ? 's' : ''})</dt>
+                    <dd className="text-sm font-medium text-gray-900">₹ {totalCartValue}</dd>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <dt className="flex items-center text-sm text-gray-800">
+                      <span>Discount</span>
+                    </dt>
+                    <dd className="text-sm font-medium text-green-700">- ₹ {totalDiscountValue.toFixed(2)}</dd>
+                  </div>
+                  <div className="flex items-center justify-between py-4">
+                    <dt className="flex text-sm text-gray-800">
+                      <span>Delivery Charges</span>
+                    </dt>
+                    <dd className="text-sm font-medium text-green-700">Free</dd>
+                  </div>
+                  <div className="flex items-center justify-between py-4 border-dashed border-y">
+                    <dt className="text-base font-medium text-gray-900">Total Amount</dt>
+                    <dd className="text-base font-medium text-gray-900">₹ {(totalCartValue - totalDiscountValue).toFixed(2)}</dd>
+                  </div>
+                </dl>
+                <div className="px-2 pb-4 font-medium text-green-700">
+                  You will save ₹ {totalDiscountValue.toFixed(2)} on this order
                 </div>
-                <div className="flex items-center justify-between pt-4">
-                  <dt className="flex items-center text-sm text-gray-800">
-                    <span>Discount</span>
-                  </dt>
-                  <dd className="text-sm font-medium text-green-700">- ₹{totalDiscountValue.toFixed(2)}</dd>
-                </div>
-                <div className="flex items-center justify-between py-4">
-                  <dt className="flex text-sm text-gray-800">
-                    <span>Delivery Charges</span>
-                  </dt>
-                  <dd className="text-sm font-medium text-green-700">Free</dd>
-                </div>
-                <div className="flex items-center justify-between py-4 border-dashed border-y ">
-                  <dt className="text-base font-medium text-gray-900">Total Amount</dt>
-                  <dd className="text-base font-medium text-gray-900">₹ {(totalCartValue-totalDiscountValue).toFixed(2)}</dd>
-                </div>
-              </dl>
-              <div className="px-2 pb-4 font-medium text-green-700">
-                You will save ₹ {totalDiscountValue.toFixed(2)} on this order
               </div>
-            </div>
-          </section>
+            </section>
+          ) : (
+            <p className="mt-16 text-center text-gray-800 lg:col-span-4 lg:mt-0">Your Cart is Empty!</p>
+          )}
         </form>
       </div>
     </div>
