@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import  Dropdown  from '../Header/Dropdown.jsx';
+import Dropdown from '../Header/Dropdown.jsx';
 
 const useFetchProducts = () => {
   const [products, setProducts] = useState([]);
@@ -30,7 +30,6 @@ const useFetchProducts = () => {
     };
 
     fetchProducts();
-    // console.log(products)
   }, []);
 
   return { products, loading, error };
@@ -86,6 +85,7 @@ const ProductCard = React.memo(({ product, onAddToCart }) => (
 
 function Products() {
   const { products, loading, error } = useFetchProducts();
+  const [selectedCategory, setSelectedCategory] = useState('All Products');
   const dispatch = useDispatch();
   const notify = () => toast.success('Item added to the cart!', {
     position: "top-right",
@@ -103,6 +103,14 @@ function Products() {
     notify();
   }, [dispatch]);
 
+  const handleCategorySelect = useCallback((category) => {
+    setSelectedCategory(category);
+  }, []);
+
+  const filteredProducts = selectedCategory === 'All Products' 
+    ? products 
+    : products.filter(product => product.category.toLowerCase() === selectedCategory.toLowerCase());
+
   if (loading) {
     return (
       <div className="grid grid-cols-1 gap-6 p-2 md:grid-cols-2 lg:grid-cols-4 lg:p-6">
@@ -118,14 +126,13 @@ function Products() {
   }
 
   return (
-    
     <div>
       <div className="flex items-center justify-center h-20 mb-4">
-        <Dropdown />
+        <Dropdown onSelect={handleCategorySelect} />
       </div>
       
       <div className="grid grid-cols-1 gap-6 p-2 md:grid-cols-2 lg:grid-cols-4 lg:p-6">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}
             product={product}

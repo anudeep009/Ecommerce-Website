@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-const Dropdown = () => {
+const Dropdown = ({ onSelect }) => {
   const [selected, setSelected] = useState('All Products');
   const [isOpen, setIsOpen] = useState(false);
-  const options = ['smartphones', 'laptops', 'fragrances', 'skincare', 'groceries'];
+  const options = ['All Products', 'smartphones', 'laptops', 'fragrances', 'skincare', 'groceries'];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -12,6 +12,7 @@ const Dropdown = () => {
   const handleOptionClick = (option) => {
     setSelected(option);
     setIsOpen(false);
+    onSelect(option); 
   };
 
   return (
