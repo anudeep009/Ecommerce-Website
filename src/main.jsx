@@ -16,7 +16,7 @@ import store from './Store/Store.js';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
-      <Route path='/Home' element={<Home />} />
+      <Route path='/Home' index element={<Home />} />
       <Route path='/Signup' element={<Signup />} />
       <Route path='/Signin' element={<Signin />}/>
       <Route path='/Products' element={<Products />} />
